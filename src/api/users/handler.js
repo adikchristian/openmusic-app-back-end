@@ -6,9 +6,9 @@ class UserHandler {
     this.postUserHandler = this.postUserHandler.bind(this);
   }
 
-  async postUserHandler(req, res) {
-    this._validator.validateUserPayload(req.payload);
-    const { username, password, fullname } = req.payload;
+  async postUserHandler({ payload }, res) {
+    this._validator.validateUserPayload(payload);
+    const { username, password, fullname } = payload;
 
     const userId = await this._service.addUser({ username, password, fullname });
 

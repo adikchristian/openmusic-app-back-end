@@ -1,13 +1,13 @@
-const CollaboartionHandler = require('./handler');
+const CollaborationHandler = require('./handler');
 const routes = require('./routes');
 
 module.exports = {
-  name: 'collaboartions',
+  name: 'collaborations',
   version: '1.0.0',
   register: async (server, {
     collaborations, playlistService, validator,
   }) => {
-    const collaborationsHandler = new CollaboartionHandler(
+    const collaborationsHandler = new CollaborationHandler(
       collaborations,
       playlistService,
       validator,

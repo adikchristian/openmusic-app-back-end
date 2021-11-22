@@ -1,7 +1,6 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../exceptions/InvariantError');
-const AuthorizationError = require('../exceptions/AuthorizationError');
 
 class CollaboratorService {
   constructor() {
@@ -39,7 +38,6 @@ class CollaboratorService {
   }
 
   async verifyCollaborator(playlistId, userId) {
-    console.log('access via collaboator');
     const query = {
       text: 'SELECT * FROM collaborations WHERE playlist_id = $1 AND user_id = $2',
       values: [playlistId, userId],
@@ -47,8 +45,8 @@ class CollaboratorService {
 
     const result = await this._pool.query(query);
 
-    if (!result.rowCount) {
-      throw new AuthorizationError('Anda tidak memiliki akses');
+    if (!result.rows.length) {
+      throw new InvariantError('Gagal Verify collaborations');
     }
   }
 }
